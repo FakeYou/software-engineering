@@ -7,27 +7,22 @@ import java.util.*;
 public class DobbelsteenModel
 {
 	private int waarde;
-    private int[] gegooideWaarden;
 	private ArrayList<ActionListener> actionListenerList = new ArrayList<ActionListener>();
 
 	public DobbelsteenModel()
 	{
-		waarde = (int)(Math.random()*6+1);
-        gegooideWaarden = new int[] { 0, 0, 0, 0, 0, 0};
+		waarde= (int)(Math.random()*6+1);
 	}
 	
     public int getWaarde()
     {
         return waarde;
-    }
-    public int[] getGegooideWaarden() { return gegooideWaarden; }
+    }    
 	public void verhoog()
 	{
 		waarde++;
 	    if (waarde>6) waarde=1;
-
-        nieuweWaarde(waarde);
-
+	    
 	    // Merk op dat we de 3e String-parameter van de constructor van de ActionEvent niet invullen.
 	    // In dit geval zou je die kunnen gebruiken om de nieuwe dobbelsteenwaarde mee te geven
 	    // aan de ActionListener. Dan hoeft de ActionListener niet met e.getSource() weer naar
@@ -38,22 +33,12 @@ public class DobbelsteenModel
 	{
 	    waarde--;
 	    if (waarde<1) waarde=6;
-
-        nieuweWaarde(waarde);
-
 	    processEvent( new ActionEvent( this, ActionEvent.ACTION_PERFORMED, null));
 	} 
 	public void gooi(){
-	    waarde = (int)(Math.random()*6+1);
-
-        nieuweWaarde(waarde);
-
+	    waarde= (int)(Math.random()*6+1);
 	    processEvent( new ActionEvent( this, ActionEvent.ACTION_PERFORMED, null));
 	}
-
-    private void nieuweWaarde(int waarde) {
-        gegooideWaarden[waarde - 1]++;
-    }
 	
 	public void addActionListener( ActionListener l){
 		actionListenerList.add( l );
