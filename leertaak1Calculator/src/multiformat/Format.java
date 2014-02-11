@@ -34,6 +34,6 @@ public abstract class Format {
    * Translate a string representation in a specific format and base to
    * the internal Rational representation.
    */
-  abstract Rational parse(String p_number, Base p_base) throws FormatException;
+  abstract Rational parse(String p_number, Base p_base) throws FormatException, NumberBaseException;
 
 }

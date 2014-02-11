@@ -27,7 +27,7 @@ public class RationalFormat extends Format {
             "/" + base.toString(number.denominator);
   }
 
-  Rational parse(String number, Base base) throws FormatException {
+  Rational parse(String number, Base base) throws FormatException, NumberBaseException {
     int index = number.indexOf('/');
     if(index >= 0)
       return new Rational(base.parse(number.substring(0, index).trim()),

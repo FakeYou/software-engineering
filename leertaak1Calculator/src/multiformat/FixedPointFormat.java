@@ -33,7 +33,7 @@ extends Format {
     return result;
   }
 
-  public Rational parse(String number, Base base) {
+  public Rational parse(String number, Base base) throws NumberBaseException {
     return new Rational(base.parse(number));
   }
 }

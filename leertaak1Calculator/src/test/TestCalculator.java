@@ -48,6 +48,9 @@ public class TestCalculator extends TestCase {
         catch(FormatException e){
 			fail("Unexpected format exception");
 		}
+        catch(NumberBaseException e) {
+            fail(e.getMessage());
+        }
 	}
 
     public void testDivide() {
@@ -65,6 +68,9 @@ public class TestCalculator extends TestCase {
         }
         catch(DivideByZeroException e) {
 
+        }
+        catch(NumberBaseException e) {
+            fail(e.getMessage());
         }
     }
 	

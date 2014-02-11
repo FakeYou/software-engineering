@@ -72,6 +72,9 @@ public class Command {
         }catch(FormatException e){
           System.out.println("Wrong operand: " + e.getMessage());
         }
+        catch(NumberBaseException e){
+          System.out.println("Wrong operand: " + e.getMessage());
+        }
       }else if(command.indexOf("read")>=0){
         try{
           BufferedReader file = new  BufferedReader(

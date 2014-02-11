@@ -30,9 +30,20 @@ public class Calculator {
   // The current numberbase of the calculator
   private Base base = new DecimalBase();
 
-  public void addOperand(String newOperand) throws FormatException {
-	  operand_1 = operand_0;
-      operand_0 = format.parse(newOperand, base);
+  public void addOperand(String newOperand) throws FormatException, NumberBaseException {
+      Rational parsed;
+
+      try {
+          parsed = format.parse(newOperand, base);
+      }
+      // catch NumberBaseException an rethrow to prevent
+      // the following code from being executed
+      catch (NumberBaseException e) {
+          throw(e);
+      }
+
+      operand_1 = operand_0;
+      operand_0 = parsed;
   }
 
   public void add(){

@@ -37,7 +37,7 @@ public class TestFormat extends TestCase {
 			calc.setBase(new BinaryBase());
 			assertEquals("0.11",calc.secondOperand());
             calc.setBase(new OctalBase());
-            assertEquals("0.6",calc.secondOperand());
+            assertEquals("0.6", calc.secondOperand());
             calc.setBase(new HexBase());
             assertEquals("0.C",calc.secondOperand());
 
@@ -54,9 +54,25 @@ public class TestFormat extends TestCase {
 			assertEquals("11.0/100.0",calc.secondOperand());
 			calc.setBase(new HexBase());
 			assertEquals("3.0/4.0",calc.secondOperand());
-		} catch (FormatException e) {
+        }
+        catch (FormatException e) {
 			fail("Unexpected exception");
 		}
-    	
+        catch (NumberBaseException e) {
+            fail(e.getMessage());
+        }
+
+        try {
+            calc.setFormat(new FixedPointFormat());
+            calc.setBase(new DecimalBase());
+            calc.addOperand("0.10A");
+            fail("NumberBaseException was expected");
+        }
+        catch(FormatException e) {
+            fail("Unexpected exception");
+        }
+        catch(NumberBaseException e) {
+
+        }
     }
 }

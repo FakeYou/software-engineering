@@ -45,7 +45,7 @@ public abstract class Base {
    * @param number A String representation like "101.101" or "1A3.E56".
    * @return The decimal double value of the number. 
    */
-  double parse(String number) {
+  double parse(String number) throws NumberBaseException {
     // decodes the sign
     double sign = 1.0;
     if(number.charAt(0) == '-'){
@@ -71,6 +71,10 @@ public abstract class Base {
     // process the number. "101.101" is 4*1 + 2*0 + 1*1 + 1*0.5 + ...
     for(int i = 0; i < number.length(); i++)
       if(number.charAt(i)!='.'){
+        if(digits.indexOf(number.charAt(i)) == -1) {
+          throw new NumberBaseException(number.charAt(i));
+        }
+
         result += mult * digits.indexOf(number.charAt(i));
         mult /= base;
       }

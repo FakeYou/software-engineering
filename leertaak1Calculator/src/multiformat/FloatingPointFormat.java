@@ -40,7 +40,7 @@ public class FloatingPointFormat extends Format {
     }
   }
 
-  public Rational parse(String number, Base base) throws FormatException {
+  public Rational parse(String number, Base base) throws FormatException, NumberBaseException {
     int indexMul = number.indexOf('*');
     int indexPow = number.indexOf('^');
     if(indexMul <= 0 || indexPow <= 0) {
