@@ -17,6 +17,7 @@
  * 02111-1307  USA
  */
 package test;
+import com.sun.org.apache.xpath.internal.operations.Div;
 import junit.framework.TestCase;
 import multiformat.*;
 
@@ -43,10 +44,28 @@ public class TestCalculator extends TestCase {
 		calc.add();
 		assertEquals("0.0",calc.firstOperand());
 		assertEquals("6.0",calc.secondOperand());
-		}catch(FormatException e){
+		}
+        catch(FormatException e){
 			fail("Unexpected format exception");
 		}
 	}
-	
+
+    public void testDivide() {
+        Calculator calc = new Calculator();
+
+        try {
+            calc.addOperand("10.0");
+            calc.addOperand("0.0");
+
+            calc.divide();
+            fail("DivideByZeroException was expected");
+        }
+        catch(FormatException e){
+            fail("Unexpected format exception");
+        }
+        catch(DivideByZeroException e) {
+
+        }
+    }
 	
 }

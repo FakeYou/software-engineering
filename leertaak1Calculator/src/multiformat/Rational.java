@@ -20,7 +20,7 @@ package multiformat;
 
 /**
  * Class representing a rational ('breuk').
- * @author J.Baljé: Added comments
+ * @author J.Baljï¿½: Added comments
  */
 public class Rational {
 	static final double PRECISION=10;
@@ -29,7 +29,7 @@ public class Rational {
 	double numerator = 0.0; // teller
 	double denominator = 1.0; // noemer
 
-	/**
+	/**op
 	 * Create a new Rational
 	 * @param num Numerator 
 	 * @param den Denominator 

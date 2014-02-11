@@ -24,7 +24,7 @@ import java.io.*;
  * De main-klasse die leest en schrijft naar de console.
  * 
  * @author Brugali
- * @author Baljé
+ * @author Baljï¿½
  */
 public class Command {
   Calculator calc=new Calculator();
@@ -51,7 +51,13 @@ public class Command {
       if(command.equals("+")) calc.add();
       else if(command.equals("-")) calc.subtract();
       else if(command.equals("*")) calc.multiply();
-      else if(command.equals("/")) calc.divide();
+      else if(command.equals("/")) {
+        try {
+          calc.divide();
+        }catch (DivideByZeroException e) {
+          System.out.println(e.getMessage());
+        }
+      }
       else if(command.equals("dec")) calc.setBase(new DecimalBase());
       else if(command.equals("bin")) calc.setBase(new BinaryBase());
       else if(command.equals("hex")) calc.setBase(new HexBase());
