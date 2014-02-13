@@ -27,4 +27,8 @@ extends Base {
   public DecimalBase() {
     super("dec",10,"0123456789");
   }
+
+  public DecimalBase clone() {
+    return new DecimalBase();
+  }
 }

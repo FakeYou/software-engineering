@@ -7,4 +7,8 @@ public class OctalBase extends Base {
     public OctalBase() {
         super("oct", 8, "01234567");
     }
+
+    public OctalBase clone() {
+        return new OctalBase();
+    }
 }

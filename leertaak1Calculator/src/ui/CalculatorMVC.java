@@ -11,6 +11,8 @@ import java.awt.*;
 public class CalculatorMVC extends JFrame {
     Calculator calc;
     InputController inputController;
+    OperandsView operandsView;
+    HistoryView historyView;
 
     public void init() {
         calc = new Calculator();
@@ -23,8 +25,31 @@ public class CalculatorMVC extends JFrame {
         setVisible(true);
         setTitle("Calculator");
 
+        setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.weightx = 1;
+        c.weighty = 1;
+        c.fill = GridBagConstraints.BOTH;
+
+        c.gridx = 0;
+        c.gridy = 1;
         inputController = new InputController(calc);
-        add(inputController, BorderLayout.SOUTH);
+        add(inputController, c);
+
+        c.gridx = 0;
+        c.gridy = 0;
+        operandsView = new OperandsView();
+        add(operandsView, c);
+
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridheight = 2;
+        historyView = new HistoryView();
+        add(historyView, c);
+
+        calc.addActionListener(operandsView);
+        calc.addActionListener(historyView);
 
         pack();
     }

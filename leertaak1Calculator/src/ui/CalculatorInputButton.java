@@ -15,7 +15,7 @@ public class CalculatorInputButton {
     public AbstractButton button;
 
     public enum Type {
-        VALUE, OPERATOR, BASE
+        VALUE, OPERATOR, BASE, FORMAT
     }
 
     public CalculatorInputButton(String label, Type type, int gridx, int gridy, Boolean toggle) {
