@@ -1,10 +1,18 @@
-import java.util.Arrays;
-import java.util.concurrent.Callable;
+import java.awt.*;
 
 public class SnelheidOefening {
 
     public SnelheidOefening() {
-        testZitErinA(10);
+        test('A', 10000);
+        test('B', 10000);
+        test('C', 10000, true);
+        test('D', 10000, true);
+
+//        GetalRij rij = new GetalRij(10, 20);
+//        rij.sorteer();
+//        rij.print();
+//
+//        System.out.println(rij.zitErinD(10));
     }
 
     /**
@@ -19,54 +27,50 @@ public class SnelheidOefening {
         return System.currentTimeMillis();
     }
 
-    private static void testZitErinA(int aantal) {
-        long[] tijden = new long[aantal];
-        long totaal = 0;
-
-        GetalRij rij = new GetalRij(80000, 200000);
-
-        for(int i = 0; i < aantal; i++) {
-            long start = tijd();
-
-            rij.zitErinA(30000);
-
-            long end = tijd();
-
-            tijden[i] = end - start;
-            totaal += end - start;
-        }
-
-        System.out.println(Arrays.toString(tijden));
-        System.out.println("gemiddelde: " + (totaal / aantal));
+    private static void test(char zitErin, int aantal) {
+        test(zitErin, aantal, false);
     }
 
-    private static long[] gemiddeldeTijd(int aantal, Callable<Boolean> test) {
-        long[] tijden = new long[aantal];
-        long totaal = 0;
+    private static void test(char zitErin, int aantal, boolean sort) {
+        long totaal;
 
-        for(int i = 0; i < aantal; i++) {
-            long start = tijd();
-            boolean result = false;
+        GetalRij rij = new GetalRij(50000, 80000);
 
-            try {
-                result = test.call();
-            }
-            catch(Exception e) {
-                System.out.println(e);
-            }
-
-            long end = tijd();
-            System.out.println(end - start);
-            System.out.println("Result: " + result);
-            tijden[i] = end - start;
-            totaal += end - start;
+        if(sort) {
+            rij.sorteer();
         }
 
+        long start = tijd();
+        for(int i = 0; i < aantal; i++) {
 
-        System.out.println(Arrays.toString(tijden));
-        System.out.println("gemiddelde: " + (totaal / aantal));
+            int getal = (int) Math.round(Math.random() * 50000);
+            boolean result = false;
+            switch(zitErin) {
+                case 'A':
+                    result = rij.zitErinA(getal);
+                    break;
+                case 'B':
+                    result = rij.zitErinB(getal);
+                    break;
+                case 'C':
+                    result = rij.zitErinC(getal);
+                    break;
+                case 'D':
+                    result = rij.zitErinD(getal);
+                    break;
+            }
 
-        return tijden;
+            if(result) {
+                System.out.print('1');
+            }
+            else {
+                System.out.print('0');
+            }
+        }
+        long end = tijd();
+        totaal = end - start;
+
+        System.out.println("\n testZitErin" + zitErin + " * " + aantal + " in " + totaal + "ms (gemiddeld: " + ((float) totaal / (float) aantal) + "ms)");
     }
 }
 
