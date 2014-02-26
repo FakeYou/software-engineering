@@ -1,34 +1,10 @@
+import java.util.Arrays;
+import java.util.concurrent.Callable;
+
 public class SnelheidOefening {
 
     public SnelheidOefening() {
-        GetalRij rij = new GetalRij(40000, 80000);
-        long start;
-        long duration;
-        boolean result;
-
-        start = tijd();
-        result = rij.zitErinA(30000);
-        duration = tijd() - start;
-        System.out.println("zitErinA duration: " + duration + "ms");
-        System.out.println("zitErinA result: " + result);
-
-        start = tijd();
-        result = rij.zitErinB(30000);
-        duration = tijd() - start;
-        System.out.println("zitErinB duration: " + duration + "ms");
-        System.out.println("zitErinB result: " + result);
-
-        start = tijd();
-        result = rij.zitErinC(30000);
-        duration = tijd() - start;
-        System.out.println("zitErinC duration: " + duration + "ms");
-        System.out.println("zitErinC result: " + result);
-
-        start = tijd();
-        result = rij.zitErinD(30000);
-        duration = tijd() - start;
-        System.out.println("zitErinD duration: " + duration + "ms");
-        System.out.println("zitErinD result: " + result);
+        testZitErinA(10);
     }
 
     /**
@@ -42,4 +18,55 @@ public class SnelheidOefening {
     private static long tijd(){
         return System.currentTimeMillis();
     }
+
+    private static void testZitErinA(int aantal) {
+        long[] tijden = new long[aantal];
+        long totaal = 0;
+
+        GetalRij rij = new GetalRij(80000, 200000);
+
+        for(int i = 0; i < aantal; i++) {
+            long start = tijd();
+
+            rij.zitErinA(30000);
+
+            long end = tijd();
+
+            tijden[i] = end - start;
+            totaal += end - start;
+        }
+
+        System.out.println(Arrays.toString(tijden));
+        System.out.println("gemiddelde: " + (totaal / aantal));
+    }
+
+    private static long[] gemiddeldeTijd(int aantal, Callable<Boolean> test) {
+        long[] tijden = new long[aantal];
+        long totaal = 0;
+
+        for(int i = 0; i < aantal; i++) {
+            long start = tijd();
+            boolean result = false;
+
+            try {
+                result = test.call();
+            }
+            catch(Exception e) {
+                System.out.println(e);
+            }
+
+            long end = tijd();
+            System.out.println(end - start);
+            System.out.println("Result: " + result);
+            tijden[i] = end - start;
+            totaal += end - start;
+        }
+
+
+        System.out.println(Arrays.toString(tijden));
+        System.out.println("gemiddelde: " + (totaal / aantal));
+
+        return tijden;
+    }
 }
+

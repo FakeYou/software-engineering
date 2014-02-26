@@ -28,19 +28,38 @@ public class GetalRij {
     }
 
     public boolean zitErinA( int zoekWaarde ){
-        for(int i = 0; i < getallen.length; i ++) {
+        int i = 0;
+        boolean zitErin = false;
+
+        while(i < getallen.length) {
             int getal = getallen[i];
 
             if(getal == zoekWaarde) {
-                return true;
+                zitErin = true;
             }
+
+            i++;
         }
 
-        return false;
+        return zitErin;
     }
 
     public boolean zitErinB( int zoekWaarde ){
-        return false;
+        int i = 0;
+        boolean zitErin = false;
+
+        while(i < getallen.length) {
+            int getal = getallen[i];
+
+            if(getal == zoekWaarde) {
+                zitErin = true;
+                break;
+            }
+
+            i++;
+        }
+
+        return zitErin;
     }
 
     public boolean zitErinC( int zoekWaarde ){
