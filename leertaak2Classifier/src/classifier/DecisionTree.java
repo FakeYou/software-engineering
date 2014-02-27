@@ -30,10 +30,15 @@ import java.util.Map;
 public class DecisionTree implements Classifier {
 
 	private Node root;
+    private Map<String, FeatureType> features;
 
 	public DecisionTree(Node tree){
 		root = tree;
 	}
+
+    public Map<String, FeatureType> getFeatures() {
+        return features;
+    }
 
 	/**
 	 * Assign a category to an item. This is the implementation of algorithm
@@ -42,11 +47,11 @@ public class DecisionTree implements Classifier {
 	 * @return A String describing the name of category to which the item belongs.
 	 */
 	public String assignCategory(Item item){
-		Node current;
+        Node current;
 
-		//1)	start at the root node
-		current= root;
-		//2)	repeat while the current node is not a leaf
+        //1)	start at the root node
+        current= root;
+        //2)	repeat while the current node is not a leaf
 		while(! current.isLeaf() ){
 			//    a)	follow the arc corresponding to the item's
 			//              value of the current node split attribute
@@ -68,6 +73,8 @@ public class DecisionTree implements Classifier {
 	 * @param features
 	 */
 	public DecisionTree(Map<Item, String> trainingsSet, Map<String, FeatureType> features) {
+        this.features = features;
+
 		root = buildDecisionTree(trainingsSet,features);
 	}
 

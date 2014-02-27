@@ -55,6 +55,10 @@ public class Node {
 		arcs.put(arcLabel,child);  
 	}
 
+    public Node clone() {
+        return new Node(label);
+    }
+
 	public boolean isLeaf() { return arcs.size()==0; }
 
 	public String getLabel() { return label; }

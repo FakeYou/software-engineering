@@ -37,6 +37,10 @@ public class FeatureType {
 			allowed.add(allowedValues[i]);
 		}
 	}
+
+    public String getName() {
+        return name;
+    }
 	
 	public boolean isAllowed(String value) {
 		return allowed.contains(value);

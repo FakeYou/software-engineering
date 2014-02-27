@@ -11,26 +11,40 @@ public class TestClassifier extends TestCase {
 	}
 
     private DecisionTree buildTree(){
-		Node root = new Node("AC");
-		
-		Node n1=new Node("ABS");
-		Node n2=new Node("ABS");
-		root.addChild("yes",n1);
-		root.addChild("no",n2);
-		
-		// leaves
-		Node l1 = new Node("high");
-		Node l2 = new Node("medium");
-		Node l3 = new Node("medium");
-		Node l4 = new Node("low");
+        // leaves
+        Node leafHigh = new Node("high");
+        Node leafMed = new Node("medium");
+        Node leafLow = new Node("low");
 
-		n1.addChild("yes",l1);
-		n1.addChild("no",l2);
+        Node AcNode = new Node("AC");
 
-		n2.addChild("yes",l3);
-		n2.addChild("no",l4);
+        Node AbsNode1 = new Node("ABS");
+        Node AbsNode2 = new Node("ABS");
+
+        Node CruiseNode1 = new Node("Cruise");
+        Node CruiseNode2 = new Node("Cruise");
+        Node CruiseNode3 = new Node("Cruise");
+        Node CruiseNode4 = new Node("Cruise");
+
+        AcNode.addChild("yes", AbsNode1);
+        AcNode.addChild("no", AbsNode2);
+
+        AbsNode1.addChild("yes", CruiseNode1);
+        AbsNode1.addChild("no", CruiseNode2);
+
+        AbsNode2.addChild("yes", CruiseNode3);
+        AbsNode2.addChild("no", CruiseNode4);
+
+        CruiseNode1.addChild("yes", leafHigh.clone());  // AC yes, ABS yes, Cruise yes = high
+        CruiseNode1.addChild("no", leafMed.clone());    // AC yes, ABS yes, Cruise no  = med
+        CruiseNode2.addChild("yes", leafMed.clone());   // AC yes, ABS no,  Cruise yes = med
+        CruiseNode2.addChild("no", leafMed.clone());    // AC yes, ABS no,  Cruise no  = med
+        CruiseNode3.addChild("yes", leafMed.clone());   // AC no,  ABS yes, Cruise yes = med
+        CruiseNode3.addChild("no", leafMed.clone());    // AC no,  ABS yes, Cruise no  = med
+        CruiseNode4.addChild("yes", leafLow.clone());   // AC no,  ABS no,  Cruise yes = low
+        CruiseNode4.addChild("no", leafLow.clone());    // AC no,  ABS no,  Cruise no  = low
 		
-		return new DecisionTree(root);
+		return new DecisionTree(AcNode);
     }
 	public void testCategory(){
 		
@@ -39,17 +53,17 @@ public class TestClassifier extends TestCase {
 		FeatureType yn = new FeatureType("YesNo"
 						,new String[]{"yes","no"});
 
-		Feature[] features = new Feature[]
-		{ new Feature("AC","yes",yn),
-		  new Feature("ABS","yes",yn)
-		};
+		Feature[] features = new Feature[] {
+            new Feature("AC","yes",yn),
+		    new Feature("ABS","yes",yn),
+            new Feature("Cruise","yes",yn),
+        };
 		
 		Item item = new Item("car",features);
-		
+
 		String category = dt.assignCategory(item);
 		assertEquals("high",category);
-		
-		
+
 		item.setFeatureValue("AC","no");
 		category = dt.assignCategory(item);
 		assertEquals("medium",category);
@@ -57,5 +71,9 @@ public class TestClassifier extends TestCase {
 		item.setFeatureValue("ABS","no");
 		category = dt.assignCategory(item);
 		assertEquals("low",category);
+
+        item.setFeatureValue("Cruise","no");
+        category = dt.assignCategory(item);
+        assertEquals("low",category);
 	}
 }

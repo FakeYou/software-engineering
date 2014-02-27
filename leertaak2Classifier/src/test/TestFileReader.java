@@ -3,6 +3,7 @@ import junit.framework.TestCase;
 import classifier.*;
 
 import java.io.*;
+import java.io.FileReader;
 import java.net.URL;
 import java.util.ArrayList;
 
