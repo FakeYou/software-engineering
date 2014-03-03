@@ -36,6 +36,10 @@ public class DecisionTree implements Classifier {
 		root = tree;
 	}
 
+    public Node getRoot() {
+        return root;
+    }
+
     public Map<String, FeatureType> getFeatures() {
         return features;
     }

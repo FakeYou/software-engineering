@@ -30,7 +30,9 @@ public class FileReader {
         Map<String, FeatureType> featureSet = new HashMap<String, FeatureType>();
         ArrayList<String> featureNames = new ArrayList<String>();
 
-        FeatureType yn = new FeatureType("YesNo",new String[]{"ja","nee"});
+        String[] featureTypes = null;
+
+        FeatureType types = new FeatureType("YesNo",new String[]{"ja","nee"});
 
         int extraLines = 0;
         int numfeatures = 0;
@@ -57,7 +59,23 @@ public class FileReader {
 
                 String[] parts = current.split(";");
 
-                if(parts[0].equals("Features")) {
+                if(parts[0].equals("FeatureTypes")) {
+                    extraLines += 1;
+
+                    if(parts.length <= 0) {
+                        throw new Exception("Invalid amount of feature types");
+                    }
+
+                    featureTypes = new String[parts.length - 1];
+                    String featureName = "";
+                    for(int i = 1; i < parts.length; i++) {
+                        featureTypes[i - 1] = parts[i];
+                        featureName += parts[i];
+                    }
+
+                    types = new FeatureType(featureName, featureTypes);
+                }
+                else if(parts[0].equals("Features")) {
                     extraLines += 1;
                     numfeatures = Integer.parseInt(parts[1]);
 
@@ -70,7 +88,7 @@ public class FileReader {
                     for(int i = 0; i < numfeatures; i++) {
                         // Generate a letter of the alphabet for every feature starting with A
                         String name = Character.toString((char) (65 + i));
-                        featureSet.put(name, yn);
+                        featureSet.put(name, types);
                         featureNames.add(name);
                     }
                 }
@@ -85,7 +103,7 @@ public class FileReader {
                     featureSet.clear();
                     featureNames.clear();
                     for(int i = 0; i < parts.length - 1; i++) {
-                        featureSet.put(parts[i + 1], yn);
+                        featureSet.put(parts[i + 1], types);
                         featureNames.add(parts[i + 1]);
                     }
                 }
@@ -108,10 +126,16 @@ public class FileReader {
                         String name = featureNames.get(i);
                         String value = parts[i + 1];
 
-                        if(parts[i + 1].equals("0")) { value = "nee"; };
-                        if(parts[i + 1].equals("1")) { value = "ja"; };
+                        if(featureTypes == null) {
+                            if(parts[i + 1].equals("0")) { value = "nee"; };
+                            if(parts[i + 1].equals("1")) { value = "ja"; };
+                        }
+                        else {
+                            value = featureTypes[Integer.parseInt(parts[i + 1])];
+                        }
 
-                        featureValues[i] = new Feature(name, value, yn);
+
+                        featureValues[i] = new Feature(name, value, types);
                     }
 
                     Item item = new Item(parts[0], featureValues);

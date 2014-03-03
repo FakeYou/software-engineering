@@ -4,6 +4,7 @@ import classifier.DecisionTree;
 import classifier.FileReader;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by FakeYou on 2/27/14.

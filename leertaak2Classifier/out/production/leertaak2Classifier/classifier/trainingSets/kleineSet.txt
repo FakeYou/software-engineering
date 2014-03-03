@@ -1,0 +1,12 @@
+FeatureTypes;yes;no;
+Features;3;
+FeatureNames;AC;ABS;Brakes
+Items;8;
+Mercedes SLK 2001;1;1;1;Super Hoog;
+Mercedes SLK 1998;1;1;0;Beetje Hoog;
+Porsche 911 1982;1;0;1;Hoog;
+Porsche 911GT 1982;1;0;0;Echt Midden;
+Renault Laguna 1995;0;1;1;Midden;
+Renault 1995;0;1;0;Bijna Midden;
+Saab Viggen 1975;0;0;1;Laag;
+Saab Viggen 1975;0;0;0;Dom Laag;

@@ -52,7 +52,7 @@ public class Node {
 	}
 
 	public void addChild(String arcLabel, Node child){
-		arcs.put(arcLabel,child);  
+		arcs.put(arcLabel,child);
 	}
 
     public Node clone() {
@@ -62,6 +62,7 @@ public class Node {
 	public boolean isLeaf() { return arcs.size()==0; }
 
 	public String getLabel() { return label; }
+    public Map<String, Node> getArcs() { return arcs; }
 
 	public Node follow(String arcLabel) {
 		return (Node)arcs.get(arcLabel);
@@ -83,7 +84,7 @@ public class Node {
 		buffer.append("[").append(label);
 		if(!isLeaf()){
 			buffer.append("\n");
-			for (Iterator<String> iter = arcs.keySet().iterator(); iter.hasNext();) {
+            for (Iterator<String> iter = arcs.keySet().iterator(); iter.hasNext();) {
 				String arcLabel = (String) iter.next();
 				Node dest = (Node)arcs.get(arcLabel);
 				buffer.append(indent)
