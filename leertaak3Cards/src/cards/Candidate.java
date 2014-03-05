@@ -39,6 +39,4 @@ public class Candidate
     {
        return ""+cardChar+"("+available+") ";
     }
-    
-
 }
