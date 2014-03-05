@@ -91,20 +91,52 @@ class TicTacToe
 	// Simple supporting routines
 	private void clearBoard( )
 	{
-		//TODO:
+        for(int y = 0; y < board.length; y++) {
+            for(int x = 0; x < board[0].length; x++) {
+                board[y][x] = EMPTY;
+            }
+        }
 	}
 
 
 	private boolean boardIsFull( )
 	{
-		//TODO:
-		return true;
+        Boolean full = true;
+
+        for(int y = 0; y < board.length; y++) {
+            for(int x = 0; x < board[0].length; x++) {
+                int cell = board[y][x];
+
+                if(cell == EMPTY) {
+                    full = false;
+                }
+            }
+        }
+
+		return full;
 	}
 
 	// Returns whether 'side' has won in this position
 	private boolean isAWin( int side )
 	{
 	    //TODO:
+        int [][] winningPositions = {
+                { 0, 1, 2 },
+                { 3, 4, 5 },
+                { 6, 7, 8 },
+
+                { 0, 3, 6 },
+                { 1, 4, 5 },
+                { 2, 5, 8 },
+
+                { 0, 4, 8 },
+                { 2, 4, 6 },
+        };
+
+        for(int i = 0; i < winningPositions.length; i++) {
+            int[] winningPosition = winningPositions[i];
+        }
+
 	    return true;
     }
 
@@ -129,9 +161,28 @@ class TicTacToe
 	
 	public String toString()
 	{
-	    //TODO:
-		return "...\n...\n...\n";   
-	}  
+        String string = "";
+
+        for(int y = 0; y < board.length; y++) {
+            for(int x = 0; x < board[0].length; x++) {
+                int cell = board[y][x];
+
+                if(cell == HUMAN) {
+                    string += humanChar;
+                }
+                else if(cell == COMPUTER) {
+                    string += computerChar;
+                }
+                else if(cell == EMPTY) {
+                    string += ".";
+                }
+            }
+
+            string += "\n";
+        }
+
+        return string;
+	}
 	
 	public boolean gameOver()
 	{
@@ -162,4 +213,3 @@ class TicTacToe
 	
 	
 }
-

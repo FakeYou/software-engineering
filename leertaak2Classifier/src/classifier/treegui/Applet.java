@@ -14,7 +14,7 @@ public class Applet extends JApplet {
     private TreeView treeView;
 
     public void init() {
-        FileReader fileReader = new FileReader("kleineSet.txt");
+        FileReader fileReader = new FileReader("trainingSet.txt");
         tree = fileReader.buildTree();
 
         treeView = new TreeView(tree);

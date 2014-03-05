@@ -31,8 +31,7 @@ private Scanner    reader = new Scanner(System.in);
            }
            index++;
         }
-}
-
+    }
 }
         
           
