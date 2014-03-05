@@ -14,15 +14,23 @@ class Tui
         do
         {
             System.out.println("*** new Game ***\n");
-            t=new TicTacToe();
-            if (t.computerPlays()) System.out.println("I start:\n");
-            else                   System.out.println("You start:\n");
+            t = new TicTacToe();
+
+            if (t.computerPlays()) {
+                System.out.println("I start:\n");
+            }
+            else {
+                System.out.println("You start:\n");
+            }
+
             while (!t.gameOver())
             {
                t.playMove(move());
                System.out.println(t);
             }
+
             System.out.println("Game over " + t.winner() + " wins");
+
         } while (nextGame());
     }
     
@@ -63,6 +71,7 @@ class Tui
             System.out.println(""+yn);
         } 
         while  (!(yn=='Y' || yn=='y' || yn=='N' || yn=='n'));
+
         return yn=='Y'|| yn=='y';
     }
 }
