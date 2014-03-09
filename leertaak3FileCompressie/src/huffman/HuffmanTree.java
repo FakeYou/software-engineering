@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.Stack;
 
 
 //Huffman tree class interface: manipulate huffman coding tree.
@@ -79,10 +79,33 @@ public class HuffmanTree
 	 /**
 	  * Get the character corresponding to code.
 	  */
-	 public int getChar( String code )
-	 {
-	     // TODO = opdracht           
-	 }
+    public int getChar( String code )
+    {
+        // TODO = opdracht
+        HuffNode parent = root;
+
+        for(int i = 0; i < code.length(); i++) {
+            char c = code.charAt(i);
+
+            if(parent == null) {
+                break;
+            }
+
+            if(c == '0') {
+                parent = parent.left;
+            }
+            else {
+                parent = parent.right;
+            }
+        }
+
+        if(parent == null) {
+            return ERROR;
+        }
+        else {
+            return parent.value;
+        }
+    }
 	 
 	 /**
 	  * Writes an encoding table to an output stream.
@@ -144,7 +167,7 @@ public class HuffmanTree
 	 private void createTree( )
 	 {
 	     ArrayList<HuffNode> ar = new ArrayList<HuffNode>();
-		 
+
 	     for( int i = 0; i <= BitUtils.DIFF_BYTES; i++ )
 	         if ( theCounts.getCount( i ) > 0 )
 	         {
@@ -153,9 +176,21 @@ public class HuffmanTree
 	             theNodes[ i ] =  newNode;
 	             ar.add( newNode );
 	         }
-	              
-	     // TODO = opdracht      
-	     
-	     root = ar.remove(0);
+
+         while(ar.size() > 1) {
+             Collections.sort(ar);
+             HuffNode left = ar.remove(0);
+             HuffNode right = ar.remove(0);
+
+             int weight = left.weight + right.weight;
+             HuffNode result = new HuffNode(INCOMPLETE_CODE, weight, left, right, null);
+
+             left.parent = result;
+             right.parent = result;
+
+             ar.add(result);
+         }
+
+         root = ar.remove(0);
 	 }
 }
