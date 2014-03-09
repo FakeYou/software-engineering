@@ -37,7 +37,7 @@ public class DynamischProgrammerenTest {
 		assertTrue( solver.solve( new int[]{3,5,7,9,11}, 17 ));
 		// Lukt niet
 		assertFalse( solver.solve( new int[]{2,4}, 5 ));
-		// Eén te weinig
+		// Eï¿½n te weinig
 		assertFalse( solver.solve( new int[]{1,1,2,2,3,3,4,4,5,5}, 31 ) );
 		// Precies goed
 		assertTrue( solver.solve( new int[]{1,1,1,2,2,3,3,4,4,5,5}, 31 ) );
