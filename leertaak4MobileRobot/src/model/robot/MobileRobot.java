@@ -48,7 +48,7 @@ public class MobileRobot {
 		this.position = new Position(x, y, Math.toRadians(t));
 		this.platform = new Platform("P1", this, environment);
 		this.sensors.add(new Laser("L1", this, new Position(20.0, 0.0, 0.0), environment));
-		delay = 50;
+		delay = 10;
 
 		this.intelligence = new MobileRobotAI(this,map);
 
