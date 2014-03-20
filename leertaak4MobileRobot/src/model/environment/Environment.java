@@ -31,7 +31,7 @@ public class Environment {
 	 */
 	public Environment(OccupancyMap map) {
 		this.obstacles = new ArrayList<Obstacle>();
-		robot = new MobileRobot("R1", 90, 200, 270, this, map);
+		robot = new MobileRobot("R1", 90, 200, 0, this, map);
 		actionListenerList = new ArrayList<ActionListener>();
 	}
 

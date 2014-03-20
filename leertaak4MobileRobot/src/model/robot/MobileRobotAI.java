@@ -69,35 +69,25 @@ public class MobileRobotAI implements Runnable {
                 scan();
                 getPosition();
 
-                double front = measurement('f');
-                double right = measurement('r');
-                double left = measurement('l');
-                double back = measurement('b');
+                double front = measurement(0, 5);
+                double right = measurement(90, 20);
+                double left = measurement(-90, 20);
+                double back = measurement(180, 20);
 
                 System.out.println("front: " + front + ", right: " + right + ", back: " + back + ", left: " + left);
-//                turnTo(position[2] + 15);
 
-                if(front > 90) {
-                    robot.sendCommand("P1.MOVEFW 30");
-                    input.readLine();
+                if(right >= 60) {
+                    turnTo(position[2] + 45);
                 }
-                else if(front > 60) {
-                    robot.sendCommand("P1.MOVEFW 20");
-                    input.readLine();
+                else if(front >= 70) {
+                    moveForward(20);
                 }
-                else if(front > 30) {
-                    robot.sendCommand("P1.MOVEFW 10");
-				    input.readLine();
+                else if(front >= 20) {
+                    moveForward(10);
                 }
                 else {
                     turnTo(position[2] - 45);
-                }
-
-                if(right < 30) {
-                    turnTo(position[2] - 45);
-                }
-                else if(left < 30 || right == 100) {
-                    turnTo(position[2] + 45);
+                    moveBackward(1);
                 }
             }
             catch (Exception e) {
@@ -108,30 +98,9 @@ public class MobileRobotAI implements Runnable {
 		}
 	}
 
-    private double measurement() {
-        return measurement('f');
-    }
-
-    private double measurement(char heading) {
-        double direction = position[2];
-
-        switch(heading) {
-            case 'f':
-                direction = 0;
-                break;
-            case 'l':
-                direction = 315;
-                break;
-            case 'r':
-                direction = 45;
-                break;
-            case 'b':
-                direction = 180;
-                break;
-        }
-
-        int min = (int) direction - 15;
-        int max = (int) direction + 15;
+    private double measurement(int direction, int cone) {
+        int min = direction - cone;
+        int max = direction + cone;
 
         int total = 0;
         int amount = 0;
@@ -159,7 +128,17 @@ public class MobileRobotAI implements Runnable {
             }
         }
 
-        return lowest;
+        return total / amount;
+    }
+
+    private void moveForward(int units) throws IOException {
+        robot.sendCommand("P1.MOVEFW " + units);
+        input.readLine();
+    }
+
+    private void moveBackward(int units) throws IOException {
+        robot.sendCommand("P1.MOVEBW " + units);
+        input.readLine();
     }
 
     private void getPosition() throws IOException {
@@ -168,13 +147,9 @@ public class MobileRobotAI implements Runnable {
         robot.sendCommand("R1.GETPOS");
         result = input.readLine();
         parsePosition(result, position);
-
-//        System.out.println("GetPosition [x: " + position[0] + ", y: " + position[1] + ", DEG: " + position[2] + "]");
     }
 
     private void scan() throws IOException {
-//        System.out.println("Scan");
-
         String result;
 
         getPosition();
