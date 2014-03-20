@@ -70,13 +70,13 @@ public class MobileRobotAI implements Runnable {
                 getPosition();
 
                 double front = measurement(0, 5);
-                double right = measurement(90, 20);
-                double left = measurement(-90, 20);
+                double right = measurement(110, 20);
+                double left = measurement(-110, 20);
                 double back = measurement(180, 20);
 
                 System.out.println("front: " + front + ", right: " + right + ", back: " + back + ", left: " + left);
 
-                if(right >= 60) {
+                if(right >= 45) {
                     turnTo(position[2] + 45);
                 }
                 else if(front >= 70) {
@@ -87,7 +87,6 @@ public class MobileRobotAI implements Runnable {
                 }
                 else {
                     turnTo(position[2] - 45);
-                    moveBackward(1);
                 }
             }
             catch (Exception e) {
