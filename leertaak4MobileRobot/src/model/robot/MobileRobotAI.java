@@ -93,8 +93,14 @@ public class MobileRobotAI implements Runnable {
                     failsafe += 1;
                 }
 
-                if(right > 70 && left > 70 && front > 70 && back > 70 && failsafe > 5) {
-                    moveBackward(10);
+                if(failsafe > 5) {
+                    if(front > 20) {
+                        moveForward(10);
+                    }
+                    else if(back > 20) {
+                        moveBackward(10);
+                    }
+                    
                     failsafe = 0;
                 }
             }
