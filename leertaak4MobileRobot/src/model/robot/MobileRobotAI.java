@@ -76,9 +76,6 @@ public class MobileRobotAI implements Runnable {
 
                 System.out.println("front: " + front + ", right: " + right + ", back: " + back + ", left: " + left);
 
-                if(right > 60 && left > 60 && front > 60) {
-                    moveForward(10);
-                }
 
                 if(right >= 45) {
                     turnTo(position[2] + 45);
@@ -91,6 +88,10 @@ public class MobileRobotAI implements Runnable {
                 }
                 else {
                     turnTo(position[2] - 45);
+                }
+
+                if(right > 60 && left > 60 && front > 60) {
+                    moveForward(10);
                 }
             }
             catch (Exception e) {
