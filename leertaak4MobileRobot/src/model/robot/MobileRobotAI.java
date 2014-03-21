@@ -96,12 +96,13 @@ public class MobileRobotAI implements Runnable {
                 if(failsafe > 5) {
                     if(front > 20) {
                         moveForward(10);
+                        failsafe = 0;
                     }
                     else if(back > 20) {
                         moveBackward(10);
+                        failsafe = 0;
                     }
-                    
-                    failsafe = 0;
+
                 }
             }
             catch (Exception e) {
