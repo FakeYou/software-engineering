@@ -58,6 +58,7 @@ public class MobileRobotAI implements Runnable {
         measures = new double[360];
 
         int failsafe = 0;
+        boolean detect = true;
 
 		while (running) {
             try {
@@ -83,25 +84,34 @@ public class MobileRobotAI implements Runnable {
                 }
 
                 double front = measurement(lowestMeasures, 0, 5);
-                double right = measurement(lowestMeasures, 110, 20);
-                double left = measurement(lowestMeasures, -110, 20);
+                double right = measurement(lowestMeasures, 100, 20);
+                double left = measurement(lowestMeasures, -100, 20);
                 double back = measurement(lowestMeasures, 180, 20);
 
-                System.out.println("front: " + front + ", right: " + right + ", back: " + back + ", left: " + left);
+                if(detect && front == 100) {
+                    firstDetect();
+                }
+
+                System.out.println("front: " + front + ", right: " + right + ", back: " + back + ", left: " + left + ", failsafe: " + failsafe);
 
                 if(right >= 45) {
                     turnTo(position[2] + 45);
+                    failsafe += 1;
                 }
                 else if(front >= 70) {
                     moveForward(20);
+                    failsafe = 0;
                 }
                 else if(front >= 20) {
                     moveForward(10);
+                    failsafe = 0;
                 }
                 else {
                     turnTo(position[2] - 45);
                     failsafe += 1;
                 }
+
+                detect = false;
 
                 if(failsafe > 5) {
                     if(front > 20) {
@@ -112,7 +122,6 @@ public class MobileRobotAI implements Runnable {
                         moveBackward(10);
                         failsafe = 0;
                     }
-
                 }
             }
             catch (Exception e) {
@@ -172,6 +181,19 @@ public class MobileRobotAI implements Runnable {
         robot.sendCommand("R1.GETPOS");
         result = input.readLine();
         parsePosition(result, position);
+    }
+
+    private void firstDetect() throws Exception {
+        moveForward(25); scan(); ping();
+        moveForward(25); scan(); ping();
+        moveForward(25); scan(); ping();
+        moveForward(25); scan(); ping();
+        turnTo(45); scan(); ping();
+        turnTo(90); scan(); ping();
+        turnTo(135); scan(); ping();
+        moveForward(25); scan(); ping();
+        moveForward(25); scan(); ping();
+        turnTo(90); scan(); ping();
     }
 
     private double[] scan() throws IOException {
