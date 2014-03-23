@@ -66,17 +66,28 @@ public class MobileRobotAI implements Runnable {
 
                 robot.setOutput(output);
 
-                scan();
+                double[] scanMeasures = scan();
+                double[] pingMeasures = ping();
                 getPosition();
 
-                double front = measurement(0, 5);
-                double right = measurement(110, 20);
-                double left = measurement(-110, 20);
-                double back = measurement(180, 20);
+                double[] lowestMeasures = new double[scanMeasures.length];
+                for(int i = 0; i < scanMeasures.length; i++) {
+                    if(scanMeasures[i] < pingMeasures[i]) {
+                        lowestMeasures[i] = scanMeasures[i];
+                    }
+                    else {
+                        lowestMeasures[i] = pingMeasures[i];
+                    }
+                }
+
+                double front = measurement(lowestMeasures, 0, 5);
+                double right = measurement(lowestMeasures, 110, 20);
+                double left = measurement(lowestMeasures, -110, 20);
+                double back = measurement(lowestMeasures, 180, 20);
 
                 System.out.println("front: " + front + ", right: " + right + ", back: " + back + ", left: " + left);
 
-                if(right >= 45) {
+                if(right >= 40) {
                     turnTo(position[2] + 45);
                 }
                 else if(front >= 70) {
@@ -97,7 +108,7 @@ public class MobileRobotAI implements Runnable {
 		}
 	}
 
-    private double measurement(int direction, int cone) {
+    private double measurement(double[] measures, int direction, int cone) {
         int min = direction - cone;
         int max = direction + cone;
 
@@ -148,7 +159,7 @@ public class MobileRobotAI implements Runnable {
         parsePosition(result, position);
     }
 
-    private void scan() throws IOException {
+    private double[] scan() throws IOException {
         String result;
 
         getPosition();
@@ -157,6 +168,21 @@ public class MobileRobotAI implements Runnable {
         result = input.readLine();
         parseMeasures(result, measures);
         map.drawLaserScan(position, measures);
+
+        return measures.clone();
+    }
+
+    private double[] ping() throws IOException {
+        String result;
+
+        getPosition();
+
+        robot.sendCommand("S1.PING");
+        result = input.readLine();
+        parseMeasures(result, measures);
+        map.drawSonarPing(position, measures);
+
+        return measures.clone();
     }
 
     private void moveTo(double targetX, double targetY) throws IOException {
