@@ -57,6 +57,8 @@ public class MobileRobotAI implements Runnable {
         position = new double[3];
         measures = new double[360];
 
+        int failsafe = 0;
+
 		while (running) {
             try {
                 pipeIn = new PipedInputStream();
@@ -87,7 +89,7 @@ public class MobileRobotAI implements Runnable {
 
                 System.out.println("front: " + front + ", right: " + right + ", back: " + back + ", left: " + left);
 
-                if(right >= 40) {
+                if(right >= 45) {
                     turnTo(position[2] + 45);
                 }
                 else if(front >= 70) {
@@ -98,6 +100,19 @@ public class MobileRobotAI implements Runnable {
                 }
                 else {
                     turnTo(position[2] - 45);
+                    failsafe += 1;
+                }
+
+                if(failsafe > 5) {
+                    if(front > 20) {
+                        moveForward(10);
+                        failsafe = 0;
+                    }
+                    else if(back > 20) {
+                        moveBackward(10);
+                        failsafe = 0;
+                    }
+
                 }
             }
             catch (Exception e) {

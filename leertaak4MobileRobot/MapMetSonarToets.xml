@@ -1,0 +1,102 @@
+<MAP>
+    <OBSTACLE NAME="WandBoven" OPAQUE="false">
+        <POINT X="0" Y="0"/>
+        <POINT X="500" Y="0"/>
+        <POINT X="500" Y="20"/>
+        <POINT X="0" Y="20"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="WandLinks" OPAQUE="false">
+        <POINT X="0" Y="20"/>
+        <POINT X="20" Y="20"/>
+        <POINT X="20" Y="400"/>
+        <POINT X="0" Y="400"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="WandRechts" OPAQUE="false">
+        <POINT X="480" Y="20"/>
+        <POINT X="500" Y="20"/>
+        <POINT X="500" Y="380"/>
+        <POINT X="480" Y="380"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="WandOnder" OPAQUE="false">
+        <POINT X="0" Y="380"/>
+        <POINT X="500" Y="380"/>
+        <POINT X="500" Y="400"/>
+        <POINT X="0" Y="400"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object1" OPAQUE="false">
+        <POINT X="20" Y="140"/>
+        <POINT X="130" Y="140"/>
+        <POINT X="130" Y="160"/>
+        <POINT X="50" Y="160"/>
+	  <POINT X="50" Y="230"/>
+	  <POINT X="130" Y="230"/>
+	  <POINT X="130" Y="250"/>
+ 	  <POINT X="20" Y="250"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object2" OPAQUE="false">
+        <POINT X="190" Y="140"/>
+        <POINT X="290" Y="140"/>
+        <POINT X="290" Y="90"/>
+        <POINT X="410" Y="90"/>
+	  <POINT X="410" Y="110"/>
+	  <POINT X="320" Y="110"/>
+        <POINT X="320" Y="290"/>
+        <POINT X="410" Y="290"/>
+        <POINT X="410" Y="310"/>
+        <POINT X="290" Y="310"/>
+	  <POINT X="290" Y="250"/>
+	  <POINT X="190" Y="250"/>
+        <POINT X="190" Y="230"/>
+        <POINT X="270" Y="230"/>
+        <POINT X="270" Y="160"/>
+        <POINT X="190" Y="160"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object3" OPAQUE="false">
+        <POINT X="450" Y="170"/>
+        <POINT X="480" Y="170"/>
+        <POINT X="480" Y="220"/>
+        <POINT X="450" Y="220"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object4" OPAQUE="true">
+        <POINT X="100" Y="90"/>
+        <POINT X="120" Y="90"/>
+        <POINT X="120" Y="140"/>
+        <POINT X="100" Y="140"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object5" OPAQUE="true">
+        <POINT X="200" Y="20"/>
+        <POINT X="220" Y="20"/>
+        <POINT X="220" Y="70"/>
+        <POINT X="200" Y="70"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object6" OPAQUE="true">
+        <POINT X="200" Y="100"/>
+        <POINT X="220" Y="100"/>
+        <POINT X="220" Y="140"/>
+        <POINT X="200" Y="140"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object7" OPAQUE="true">
+        <POINT X="390" Y="180"/>
+        <POINT X="450" Y="180"/>
+        <POINT X="450" Y="210"/>
+        <POINT X="390" Y="210"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object8" OPAQUE="true">
+        <POINT X="200" Y="250"/>
+        <POINT X="220" Y="250"/>
+        <POINT X="220" Y="280"/>
+        <POINT X="200" Y="280"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object9" OPAQUE="true">
+        <POINT X="200" Y="350"/>
+        <POINT X="220" Y="350"/>
+        <POINT X="220" Y="380"/>
+        <POINT X="200" Y="380"/>
+    </OBSTACLE>
+    <OBSTACLE NAME="Object10" OPAQUE="true">
+        <POINT X="90" Y="320"/>
+        <POINT X="130" Y="320"/>
+        <POINT X="130" Y="380"/>
+        <POINT X="90" Y="380"/>
+    </OBSTACLE>
+</MAP>
